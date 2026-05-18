@@ -150,6 +150,13 @@ export default function TnpHomePage() {
               path: "/tnp/history",
               color: "bg-amber-50 text-amber-600",
             },
+            {
+              title: "View Resources",
+              description: "View all your Resources and status.",
+              icon: History,
+              path: "/halls",
+              color: "bg-amber-50 text-amber-600",
+            },
           ].map((card) => (
             <div
               key={card.title}
