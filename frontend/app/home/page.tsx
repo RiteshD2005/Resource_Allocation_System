@@ -12,9 +12,9 @@ import {
   User,
   LogOut,
   ChevronDown,
+  Eye,
 } from "lucide-react";
 import Image from "next/image";
-import { get } from "http";
 
 export default function HomePage() {
   const router = useRouter();
@@ -54,6 +54,9 @@ export default function HomePage() {
     localStorage.removeItem("user");
     router.push("/login");
   };
+
+  // Display only the first 2 halls
+  const displayedHalls = halls.slice(0, 2);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -211,13 +214,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Available Resources (Halls) */}
+      {/* Available Resources (Halls) – Only 2 halls + "View More" card */}
       <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">
           Available Resources
         </h2>
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {halls.map((hall) => (
+          {/* Show first 2 halls */}
+          {displayedHalls.map((hall) => (
             <div
               key={hall.id}
               className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition"
@@ -252,6 +256,23 @@ export default function HomePage() {
               </div>
             </div>
           ))}
+
+          {/* "View More" Card – always shown */}
+          <div
+            onClick={() => router.push("/halls")}
+            className="cursor-pointer bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center justify-center p-6 border-2 border-dashed border-indigo-200"
+          >
+            <div className="p-3 rounded-full bg-indigo-50 text-indigo-600 mb-4">
+              <Eye className="h-8 w-8" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900">View More</h3>
+            <p className="mt-2 text-sm text-gray-500 text-center">
+              Explore all available seminar halls and classrooms.
+            </p>
+            <span className="mt-4 inline-flex items-center px-4 py-2 text-sm font-medium text-indigo-700 bg-indigo-100 rounded-lg">
+              Browse All Halls →
+            </span>
+          </div>
         </div>
       </section>
 

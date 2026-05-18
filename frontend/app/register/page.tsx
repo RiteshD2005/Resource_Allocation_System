@@ -16,12 +16,28 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
-  const [fieldErrors, setFieldErrors] = useState<{ phone?: string }>({});
+  const [fieldErrors, setFieldErrors] = useState<{
+    phone?: string;
+    email?: string;
+  }>({});
 
   const validatePhone = (phoneNumber: string) => {
     const phoneRegex = /^[6-9]\d{9}$/;
     if (!phoneNumber) return "Phone number is required";
     if (!phoneRegex.test(phoneNumber)) return "Enter a valid 10-digit mobile number (starts with 6-9)";
+    return null;
+  };
+
+  const validateEmail = (email: string) => {
+    const emailRegex =
+      /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+    if (!email) return "Email is required";
+
+    if (!emailRegex.test(email)) {
+      return "Enter a valid email address";
+    }
+
     return null;
   };
 
@@ -34,9 +50,15 @@ export default function RegisterPage() {
 
     // Frontend validation
     const phoneError = validatePhone(phone);
-    if (phoneError) {
-      setFieldErrors({ phone: phoneError });
-      setMessage(phoneError);
+    const emailError = validateEmail(email);
+
+    if (phoneError || emailError) {
+      setFieldErrors({
+        phone: phoneError || undefined,
+        email: emailError || undefined,
+      });
+
+      setMessage(phoneError || emailError || "");
       setSuccess(false);
       setLoading(false);
       return;
@@ -112,17 +134,29 @@ export default function RegisterPage() {
 
           {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email address <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full rounded-xl border border-gray-300 px-4 py-3 text-base outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-              placeholder="Enter your email"
-            />
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+
+              if (fieldErrors.email) {
+                setFieldErrors((prev) => ({
+                  ...prev,
+                  email: undefined,
+                }));
+              }
+            }}
+            required
+            className={`w-full rounded-xl border ${fieldErrors.email ? "border-red-500" : "border-gray-300"
+              } px-4 py-3 text-base outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200`}
+            placeholder="Enter your email"
+          />
+          {fieldErrors.email && (
+            <p className="mt-1 text-xs text-red-600">
+              {fieldErrors.email}
+            </p>
+          )}
           </div>
 
           {/* Phone */}
@@ -206,7 +240,7 @@ export default function RegisterPage() {
               className={`rounded-xl px-4 py-3 text-sm ${success
                 ? "border border-green-200 bg-green-50 text-green-700"
                 : "border border-red-200 bg-red-50 text-red-700"
-              }`}
+                }`}
             >
               {message}
             </div>
