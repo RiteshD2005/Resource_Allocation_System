@@ -3,7 +3,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search, MapPin, Users, X } from "lucide-react";
+import { Search, MapPin, Users, X, ArrowLeft } from "lucide-react";
 import { getValidToken } from "@/utils/auth";
 import { API_BASE_URL } from "@/lib/api";
 
@@ -75,6 +75,17 @@ export default function HallsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        {/* Back to Home Button */}
+        <div className="mb-6">
+          <button
+            onClick={() => router.push("/home")}
+            className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Home
+          </button>
+        </div>
+
         {/* Header */}
         <div className="mb-8">
           <div className="flex flex-col gap-2">
@@ -90,7 +101,6 @@ export default function HallsPage() {
 
           {/* Filters */}
           <div className="mt-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            {/* Type Buttons */}
             <div className="flex flex-wrap gap-3">
               {[
                 { label: "Halls", value: "HALL" },
@@ -112,7 +122,6 @@ export default function HallsPage() {
               ))}
             </div>
 
-            {/* Capacity Search */}
             <div className="relative w-full lg:w-[260px]">
               <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
               <input
@@ -165,7 +174,6 @@ export default function HallsPage() {
                 onClick={() => setSelectedHall(hall)}
                 className="group cursor-pointer overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
-                {/* Image */}
                 <div className="relative h-52 w-full overflow-hidden">
                   <img
                     src={
@@ -187,8 +195,6 @@ export default function HallsPage() {
                     </span>
                   </div>
                 </div>
-
-                {/* Content */}
                 <div className="space-y-3 p-5">
                   <div>
                     <h2 className="text-lg font-semibold text-gray-900">
@@ -199,8 +205,6 @@ export default function HallsPage() {
                       {hall.location}
                     </div>
                   </div>
-
-                  {/* Capacity & Type */}
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-xs uppercase tracking-wide text-gray-400">
@@ -215,8 +219,6 @@ export default function HallsPage() {
                       {hall.type}
                     </span>
                   </div>
-
-                  {/* Amenities */}
                   <div className="flex flex-wrap gap-2 pt-1">
                     {hall.amenities?.slice(0, 3).map((amenity, idx) => (
                       <span
@@ -243,7 +245,6 @@ export default function HallsPage() {
       {selectedHall && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
           <div className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl bg-white shadow-2xl">
-            {/* Top Image */}
             <div className="relative">
               <img
                 src={
@@ -260,8 +261,6 @@ export default function HallsPage() {
                 <X className="h-5 w-5" />
               </button>
             </div>
-
-            {/* Details */}
             <div className="space-y-5 p-6">
               <div>
                 <h2 className="text-3xl font-bold text-gray-900">
@@ -272,8 +271,6 @@ export default function HallsPage() {
                   {selectedHall.location}
                 </p>
               </div>
-
-              {/* Stats */}
               <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
                 <div className="rounded-xl bg-gray-50 p-4">
                   <p className="text-xs uppercase tracking-wide text-gray-400">
@@ -304,8 +301,6 @@ export default function HallsPage() {
                   </p>
                 </div>
               </div>
-
-              {/* Amenities */}
               <div>
                 <h3 className="mb-3 text-lg font-semibold text-gray-900">
                   Amenities
@@ -321,8 +316,6 @@ export default function HallsPage() {
                   ))}
                 </div>
               </div>
-
-              {/* Gallery */}
               {selectedHall.imageUrls?.length > 1 && (
                 <div>
                   <h3 className="mb-3 text-lg font-semibold text-gray-900">
