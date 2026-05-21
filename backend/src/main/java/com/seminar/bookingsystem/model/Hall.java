@@ -47,8 +47,8 @@ public class Hall {
     private Visibility visibility; // PUBLIC, TNP_ONLY
 
     @Enumerated(EnumType.STRING)
-@Column(name = "type")
-private Type type;
+    @Column(name = "type")
+    private Type type;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();

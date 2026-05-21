@@ -53,7 +53,7 @@ export default function BookingSlotsPage() {
     };
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
+        const token = getValidToken();
 
         fetch(`${API_BASE_URL}/admin/halls`, {
             headers: { Authorization: `Bearer ${token}` },

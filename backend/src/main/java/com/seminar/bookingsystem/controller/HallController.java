@@ -12,10 +12,7 @@ import com.seminar.bookingsystem.service.HallService;
 import com.seminar.bookingsystem.repository.UserRepository;
 import com.seminar.bookingsystem.security.JwtUtil;
 import com.seminar.bookingsystem.model.User;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
-import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/halls")
@@ -30,7 +27,7 @@ public class HallController {
         this.hallService = hallService;
         this.userRepository = userRepository;
     }
-
+ 
     @GetMapping
     public List<HallResponse> getAllHalls(@RequestHeader("Authorization") String authHeader) {
 
