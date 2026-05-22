@@ -15,8 +15,10 @@ import {
   Plus,
   Users,
   FileText,
+  Images,
 } from "lucide-react";
-import { get } from "http";
+import { get } from "http"; 
+import Image from "next/image";
 
 export default function TnpHomePage() {
   const router = useRouter();
@@ -51,20 +53,20 @@ export default function TnpHomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
-              <div className="relative w-8 h-8 flex-shrink-0">
-                <Image
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcoEzcUKzCVP8eV1IXqSVs1z2_x1SbErHVBg&s"
-                  alt="Logo"
-                  fill
-                  className="object-contain rounded-md"
-                  sizes="32px"
-                  unoptimized
-                />
-              </div>
-              <Link href="/home" className="text-xl font-bold text-indigo-600">
-                Resource Booking System
-              </Link>
-            </div>
+        <div className="relative w-8 h-8 flex-shrink-0">
+          <Image
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcoEzcUKzCVP8eV1IXqSVs1z2_x1SbErHVBg&s"
+            alt="Logo"
+            fill
+            className="object-contain rounded-md"
+            sizes="32px"
+            unoptimized
+          />
+        </div>
+        <Link href="/home" className="text-xl font-bold text-indigo-600">
+          TNP Dashboard
+        </Link>
+      </div>
 
             <div className="flex items-center gap-4">
               {/* Desktop Nav Links */}
