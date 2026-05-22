@@ -90,6 +90,16 @@ public class BookingService {
                         throw new ConflictException("Hall already booked for this time slot");
                 }
 
+                // 🔥 CHECK TNP LOCK COLLISION
+                List<ResourceLock> locks = resourceLockRepository.findConflicts(
+                                booking.getHall().getId(),
+                                booking.getStartTime(),
+                                booking.getEndTime());
+
+                if (!locks.isEmpty()) {
+                        throw new ConflictException("Hall is locked by TNP for this time");
+                }
+
                 User admin = userRepository.findByEmail(adminEmail)
                                 .orElseThrow(() -> new RuntimeException("Admin not found"));
 
