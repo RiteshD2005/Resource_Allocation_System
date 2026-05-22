@@ -199,7 +199,7 @@ export default function RegisterPage() {
               <option value="">Select role</option>
               <option value="STUDENT">Student</option>
               <option value="FACULTY">Faculty</option>
-              <option value="TNP">TNP</option>
+              {/* <option value="TNP">TNP</option> */}
             </select>
           </div>
 
